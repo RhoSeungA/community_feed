@@ -1,13 +1,20 @@
 package org.seunga.Post.domain.content;
 
+import org.seunga.Post.domain.common.DatetimeInfo;
+
 public abstract class Content {
     String contentText;
-
+    final DatetimeInfo datetimeInfo;
     public Content(String contentText){
         this.contentText = contentText;
+        this.datetimeInfo = new DatetimeInfo();
     }
 
-
+    public void updateContent(String updateContent){
+        checkText(updateContent);
+        this.contentText = updateContent;
+        this.datetimeInfo.updateEditDatetime();
+    }
 
     public String getContentText(){
         return  contentText;

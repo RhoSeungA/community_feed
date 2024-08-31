@@ -1,6 +1,7 @@
 package org.seunga.Post.domain.comment;
 
 import org.seunga.Post.domain.Post;
+import org.seunga.Post.domain.content.CommentContent;
 import org.seunga.Post.domain.content.Content;
 import org.seunga.User.domain.User;
 import org.seunga.common.domain.PositiveIntegerCounter;
@@ -9,10 +10,10 @@ public class Comment {
     private  final Long id;
     private  final Post post;
     private  final User author;
-    private  final Content content;
+    private  final CommentContent content;
     private  final PositiveIntegerCounter likeCount;
 
-    public Comment(Long id, Post post, User author, Content content) {
+    public Comment(Long id, Post post, User author, CommentContent content) {
         if(post == null) throw  new IllegalArgumentException();
         if(author == null) throw  new IllegalArgumentException();
         if(content == null) throw  new IllegalArgumentException();
@@ -33,5 +34,12 @@ public class Comment {
 
     public void unlike(User user){
         this.likeCount.decrease();
+    }
+
+    public void updatePost(User user,String updateText){
+        if(!this.author.equals(user)){
+            throw new IllegalArgumentException();
+        }
+        this.content.updateContent(updateText);
     }
 }

@@ -1,5 +1,6 @@
 package org.seunga.Post.domain;
 import org.seunga.Post.domain.content.PostContent;
+import org.seunga.Post.domain.content.PostPublicState;
 import org.seunga.User.domain.User;
 import org.seunga.common.domain.PositiveIntegerCounter;
 
@@ -8,6 +9,7 @@ public class Post {
     private  final User author;
     private final PostContent postContent; // extends content ->
     private final PositiveIntegerCounter likeCount;
+    private PostPublicState state;
 
     public Post(Long id,User author,PostContent content){
         if(author==null){
@@ -17,6 +19,7 @@ public class Post {
         this.author = author;
         this.postContent = content;
         this.likeCount = new PositiveIntegerCounter();
+        this.state = PostPublicState.PUBLIC;
     }
 
     public void like(User user){
@@ -28,6 +31,14 @@ public class Post {
 
     public void unlike(User user){
         this.likeCount.decrease();
+    }
+
+    public void updatePost(User user,String updateText,PostPublicState state){
+        if(!this.author.equals(user)){
+            throw new IllegalArgumentException();
+        }
+        this.state = state;
+        this.postContent.updateContent(updateText);
     }
 }
 
