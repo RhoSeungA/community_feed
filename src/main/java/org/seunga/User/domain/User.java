@@ -1,18 +1,20 @@
 package org.seunga.User.domain;
 
+import org.seunga.common.domain.PositiveIntegerCounter;
+
 import java.util.Objects;
 
 public class User {
     private final Long id;
     private  final  UserInfo userInfo; // name, profileURL
-    private final UserRelationCounter followingCount; // count
-    private final UserRelationCounter followerCounter; // count
+    private final PositiveIntegerCounter followingCount; // count
+    private final PositiveIntegerCounter followerCounter; // count
 
     public User(Long id, UserInfo userInfo) {
         this.id = id;
         this.userInfo = userInfo;
-        this.followerCounter = new UserRelationCounter();
-        this.followingCount = new UserRelationCounter();
+        this.followerCounter = new PositiveIntegerCounter();
+        this.followingCount = new PositiveIntegerCounter();
     }
 
     public void follow(User targetUser){

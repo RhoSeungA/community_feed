@@ -1,10 +1,13 @@
 package org.seunga.Post.domain;
 import org.seunga.Post.domain.content.PostContent;
 import org.seunga.User.domain.User;
+import org.seunga.common.domain.PositiveIntegerCounter;
+
 public class Post {
     private final Long id;
     private  final User author;
     private final PostContent postContent; // extends content ->
+    private final PositiveIntegerCounter likeCount;
 
     public Post(Long id,User author,PostContent content){
         if(author==null){
@@ -13,6 +16,18 @@ public class Post {
         this.id = id;
         this.author = author;
         this.postContent = content;
+        this.likeCount = new PositiveIntegerCounter();
+    }
+
+    public void like(User user){
+        if(this.author.equals(user)){
+            throw new IllegalArgumentException();
+        }
+        likeCount.increase();// 이 메서드 안에서 검증하고, 예외처리
+    }
+
+    public void unlike(User user){
+        this.likeCount.decrease();
     }
 }
 
