@@ -73,6 +73,9 @@ public class User {
         return followingCount.getCount();
     }
 
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
 
     // 유효성 검사
 
