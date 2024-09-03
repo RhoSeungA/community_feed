@@ -11,6 +11,9 @@ public class User {
     private final PositiveIntegerCounter followerCounter; // count
 
     public User(Long id, UserInfo userInfo) {
+        if(userInfo==null){
+            throw  new IllegalArgumentException();
+        }
         this.id = id;
         this.userInfo = userInfo;
         this.followerCounter = new PositiveIntegerCounter();
@@ -36,6 +39,7 @@ public class User {
         targetUser.decreaseFollowerCount();
     }
 
+    // 왜 프라이빗 ? -> 객체를 사용하는 클라이언트에서 이 메소드를 사용하지 마라.
     private void increaseFollowerCount(){
         followerCounter.increase();
     }
@@ -61,6 +65,14 @@ public class User {
     public Long getId() {
         return id;
     }
+    public int getFollowerCount() {
+        return followerCounter.getCount();
+    }
+
+    public int getFollowingCount() {
+        return followingCount.getCount();
+    }
+
 
     // 유효성 검사
 
