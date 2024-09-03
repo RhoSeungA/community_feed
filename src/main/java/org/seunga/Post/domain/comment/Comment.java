@@ -13,6 +13,9 @@ public class Comment {
     private  final CommentContent content;
     private  final PositiveIntegerCounter likeCount;
 
+    public static Comment createComment( Post post, User author, String content){
+        return new Comment(null,post,author,new CommentContent(content));
+    }
     public Comment(Long id, Post post, User author, CommentContent content) {
         if(post == null) throw  new IllegalArgumentException();
         if(author == null) throw  new IllegalArgumentException();

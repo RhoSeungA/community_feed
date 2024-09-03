@@ -1,4 +1,5 @@
 package org.seunga.Post.domain;
+import org.seunga.Post.domain.content.Content;
 import org.seunga.Post.domain.content.PostContent;
 import org.seunga.Post.domain.content.PostPublicState;
 import org.seunga.User.domain.User;
@@ -7,11 +8,24 @@ import org.seunga.common.domain.PositiveIntegerCounter;
 public class Post {
     private final Long id;
     private  final User author;
-    private final PostContent postContent; // extends content ->
+    private final Content postContent; // extends content ->
     private final PositiveIntegerCounter likeCount;
     private PostPublicState state;
 
-    public Post(Long id,User author,PostContent content){
+    // 정적 생성자 -> 장점은 ? -> 명확하게 이름을 나타낼 수 있음
+    public static Post createPost(Long id,User author,String content,PostPublicState state){
+        return new Post(id,author,new PostContent(content),state);
+    }
+    public static Post createDefaultPost(Long id,User author,String content){
+        return new Post(id,author,new PostContent(content),PostPublicState.PUBLIC);
+    }
+    //
+
+    public Post(Long id,User author,Content content){
+        this(id,author,content,PostPublicState.PUBLIC);
+    }
+
+    public Post(Long id,User author,Content content,PostPublicState postPublicState){
         if(author==null){
             throw new IllegalArgumentException();
         }
@@ -19,7 +33,7 @@ public class Post {
         this.author = author;
         this.postContent = content;
         this.likeCount = new PositiveIntegerCounter();
-        this.state = PostPublicState.PUBLIC;
+        this.state = postPublicState;
     }
 
     public void like(User user){
