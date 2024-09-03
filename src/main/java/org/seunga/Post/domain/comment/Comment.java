@@ -32,14 +32,22 @@ public class Comment {
         likeCount.increase();// 이 메서드 안에서 검증하고, 예외처리
     }
 
-    public void unlike(User user){
+    public void unlike(){
         this.likeCount.decrease();
     }
 
-    public void updatePost(User user,String updateText){
+    public void updateComment(User user,String updateText){
         if(!this.author.equals(user)){
             throw new IllegalArgumentException();
         }
         this.content.updateContent(updateText);
+    }
+
+    public int getLikeCount() {
+        return this.likeCount.getCount();
+    }
+
+    public String getCommentContent() {
+        return content.getContentText();
     }
 }

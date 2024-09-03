@@ -3,9 +3,10 @@ package org.seunga.Post.domain.content;
 import org.seunga.Post.domain.common.DatetimeInfo;
 
 public abstract class Content {
-    String contentText;
-    final DatetimeInfo datetimeInfo;
+    protected  String contentText;
+    protected final DatetimeInfo datetimeInfo;
     public Content(String contentText){
+        checkText(contentText);
         this.contentText = contentText;
         this.datetimeInfo = new DatetimeInfo();
     }

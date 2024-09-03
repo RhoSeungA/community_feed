@@ -29,7 +29,7 @@ public class Post {
         likeCount.increase();// 이 메서드 안에서 검증하고, 예외처리
     }
 
-    public void unlike(User user){
+    public void unlike(){
         this.likeCount.decrease();
     }
 
@@ -39,6 +39,14 @@ public class Post {
         }
         this.state = state;
         this.postContent.updateContent(updateText);
+    }
+
+    public int getLikeCount() {
+        return likeCount.getCount();
+    }
+
+    public String getPostContent() {
+        return postContent.getContentText();
     }
 }
 
